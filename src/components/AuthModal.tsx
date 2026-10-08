@@ -1,0 +1,7 @@
+import { ArrowRight, X } from 'lucide-react';
+
+type AuthModalProps = { mode: 'login' | 'signup'; onModeChange: (mode: 'login' | 'signup') => void; onClose: () => void };
+
+export default function AuthModal({ mode, onModeChange, onClose }: AuthModalProps) {
+  return <div className="modal-backdrop" onClick={onClose}><div className="auth-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={onClose}><X size={19} /></button><p className="eyebrow">PURE LIGHTING</p><h2>{mode === 'login' ? 'Welcome back.' : 'Create your account.'}</h2><p>{mode === 'login' ? 'Sign in to access your saved pieces and orders.' : 'Save favourites and make your next order even easier.'}</p><form onSubmit={(event) => { event.preventDefault(); onClose(); }}><label>Email address<input type="email" required placeholder="you@example.com" /></label><label>Password<input type="password" required placeholder="Your password" /></label>{mode === 'signup' && <label>Phone number<input type="tel" placeholder="+20 1X XXX XXXX" /></label>}<button className="button button-dark full" type="submit">{mode === 'login' ? 'Sign in' : 'Create account'} <ArrowRight size={16} /></button></form><button className="switch-auth" onClick={() => onModeChange(mode === 'login' ? 'signup' : 'login')}>{mode === 'login' ? 'New to Pure Lighting? Create an account' : 'Already have an account? Sign in'}</button><button className="forgot">Forgot your password?</button></div></div>;
+}

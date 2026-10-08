@@ -1,0 +1,9 @@
+import { Heart } from 'lucide-react';
+import type { StoreProduct } from '@/types/shop';
+import ProductCard from '@/components/ProductCard';
+
+type AccountProps = { wishlist: string[]; products: StoreProduct[]; onProduct: (product: StoreProduct) => void; onRemove: (id: string) => void; onSignIn: () => void; onAddToCart: (product: StoreProduct) => void };
+
+export default function Account({ wishlist, products, onProduct, onRemove, onSignIn, onAddToCart }: AccountProps) {
+  return <section className="account-page section-pad"><div className="page-intro compact"><p className="eyebrow">YOUR PURE ACCOUNT</p><h1>Welcome <i>back.</i></h1><p>Save your favourites and keep every order close.</p></div><div className="account-layout"><aside className="account-nav"><div className="account-avatar">PL</div><b>Guest account</b><span>Sign in to unlock your wishlist</span><button className="button button-dark full" onClick={onSignIn}>Sign in / create account</button><button className="account-link selected">Wishlist <span>{wishlist.length}</span></button><button className="account-link">My orders <span>0</span></button><button className="account-link">Saved addresses</button></aside><div className="wishlist-content"><div className="section-heading"><div><p className="eyebrow">SAVED FOR LATER</p><h2>Your <i>wishlist.</i></h2></div></div>{wishlist.length ? <div className="product-grid">{wishlist.map((id) => { const product = products.find((item) => item.id === id); return product ? <ProductCard key={product.id} product={product} wishlist={wishlist} onProduct={onProduct} onToggleWishlist={onRemove} onAddToCart={onAddToCart} /> : null; })}</div> : <div className="empty-state"><Heart size={30} /><h3>Nothing saved yet</h3><p>Tap the heart on any piece to keep it here.</p></div>}</div></div></section>;
+}
